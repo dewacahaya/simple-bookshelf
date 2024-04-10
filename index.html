@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Bookshelf</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ruda:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="container">
+      <nav class="nav_wrapper">
+        <div class="nav-title"><h1>Simple Bookshelf</h1></div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <!-- INPUT DATA -->
+      <section class="box-container shadow" id="add-book">
+        <h1>Input Data Buku</h1>
+        <form class="form" action="#" id="form">
+          <div class="form-group">
+            <label for="title">Cover Buku</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cover"
+              name="cover"
+              placeholder="Masukkan cover buku *link gambar"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="title">Judul Buku</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              placeholder="Masukkan judul buku"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="author">Penulis</label>
+            <input
+              type="text"
+              class="form-control"
+              id="author"
+              name="author"
+              placeholder="Masukkan penulis buku"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="publish">Tahun Terbit</label>
+            <input
+              type="text"
+              class="form-control"
+              id="publish"
+              name="publish"
+              placeholder="Masukkan tahun terbit buku"
+              required
+            />
+          </div>
+          <input type="submit" value="Save" name="Submit" class="btn-submit" />
+        </form>
+      </section>
+      <!-- INPUT DATA -->
+
+      <!-- SHOW DATA -->
+      <section class="box-container">
+        <div class="list-header">
+          <h2>List Buku</h2>
+          <input
+            class="search-bar"
+            type="text"
+            id="search-bar"
+            placeholder="Cari Buku"
+          />
+        </div>
+        <div class="list-item" id="books"></div>
+      </section>
+
+      <section class="box-container">
+        <div class="list-header">
+          <h2>Buku Yang Sudah Dibaca</h2>
+          <input
+            class="search-bar"
+            type="text"
+            id="search-bar"
+            placeholder="Cari Buku"
+          />
+        </div>
+        <div class="list-item" id="completed-read"></div>
+      </section>
+
+      <!-- SHOW DATA -->
+    </main>
+
+    <script src="script/scripts.js"></script>
+  </body>
+</html>
