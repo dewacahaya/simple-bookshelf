@@ -76,14 +76,14 @@ document.addEventListener("DOMContentLoaded", function () {
         searchBar.parentElement.nextElementSibling.getAttribute("id");
       const bookList =
         containerId === "books"
-          ? books.filter((book) => !book.isCompleted)
-          : books.filter((book) => book.isCompleted);
+          ? books.filter((book) => !book.isComplete)
+          : books.filter((book) => book.isComplete);
 
       const filteredBooks = bookList.filter((book) => {
         return (
           book.title.toLowerCase().includes(searchValue) ||
           book.author.toLowerCase().includes(searchValue) ||
-          book.publishYear.toString().includes(searchValue)
+          book.year.toString().includes(searchValue)
         );
       });
 
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const cover = document.getElementById("cover").value;
     const title = document.getElementById("title").value;
     const author = document.getElementById("author").value;
-    const publishYear = document.getElementById("publish").value;
+    const year = document.getElementById("publish").value;
 
     const generatedID = generateId();
     const newBook = generatedNewBook(
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
       cover,
       title,
       author,
-      publishYear,
+      year,
       false
     );
     books.push(newBook);
@@ -132,14 +132,14 @@ document.addEventListener("DOMContentLoaded", function () {
       return +new Date();
     }
 
-    function generatedNewBook(id, cover, title, author, publishYear, isRead) {
+    function generatedNewBook(id, cover, title, author, year, isComplete) {
       return {
         id,
         cover,
         title,
         author,
-        publishYear,
-        isRead,
+        year,
+        isComplete,
       };
     }
   }
@@ -159,19 +159,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const bookAuthor = document.createElement("p");
     bookAuthor.innerText = "Penulis: " + newBook.author;
 
-    const bookPublishYear = document.createElement("p");
-    bookPublishYear.innerText = "Tahun rilis buku: " + newBook.publishYear;
+    const bookYear = document.createElement("p");
+    bookYear.innerText = "Tahun rilis buku: " + newBook.year;
 
     const textContainer = document.createElement("div");
     textContainer.classList.add("inner");
-    textContainer.append(bookTitle, bookAuthor, bookPublishYear);
+    textContainer.append(bookTitle, bookAuthor, bookYear);
 
     const container = document.createElement("div");
     container.classList.add("item", "shadow");
     container.append(coverBook, textContainer);
     container.setAttribute("id", `book-${newBook.id}`);
 
-    if (newBook.isCompleted) {
+    if (newBook.isComplete) {
       const undoButton = document.createElement("button");
       undoButton.innerText = "Batalkan";
       undoButton.classList.add("undo-button");
@@ -198,7 +198,15 @@ document.addEventListener("DOMContentLoaded", function () {
         addBookToReaded(newBook.id);
       });
 
-      container.append(checkButton);
+      const trashButton = document.createElement("button");
+      trashButton.innerText = "Hapus Buku";
+      trashButton.classList.add("trash-button");
+
+      trashButton.addEventListener("click", function () {
+        removeBookFromReaded(newBook.id);
+      });
+
+      container.append(checkButton, trashButton);
     }
 
     return container;
@@ -213,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     for (const bookItem of books) {
       const bookElement = createBookList(bookItem);
-      if (!bookItem.isCompleted) uncompletedReadedBook.append(bookElement);
+      if (!bookItem.isComplete) uncompletedReadedBook.append(bookElement);
       else completedReadBook.append(bookElement);
     }
   });
@@ -223,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (bookTarget == null) return;
 
-    bookTarget.isCompleted = true;
+    bookTarget.isComplete = true;
     document.dispatchEvent(new Event(RENDER_EVENT));
     saveData();
   }
@@ -259,7 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (bookTarget == null) return;
 
-    bookTarget.isCompleted = false;
+    bookTarget.isComplete = false;
     document.dispatchEvent(new Event(RENDER_EVENT));
     saveData();
   }
