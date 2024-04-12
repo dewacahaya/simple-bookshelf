@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const cover = document.getElementById("cover").value;
     const title = document.getElementById("title").value;
     const author = document.getElementById("author").value;
-    const year = document.getElementById("publish").value;
+    const year = parseInt(document.getElementById("publish").value);
 
     const generatedID = generateId();
     const newBook = generatedNewBook(
